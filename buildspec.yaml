@@ -7,7 +7,6 @@ phases:
       - pwd
       - ls -lrt
       - wget https://get.symfony.com/cli/installer -O - | bash
-      - mv composer.phar /usr/local/bin/composer
       - composer install
       - ls -lrt
   pre_build:
