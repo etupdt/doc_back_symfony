@@ -1,0 +1,30 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      php: latest
+    commands:
+      - pwd
+      - ls -lrt
+      - wget https://get.symfony.com/cli/installer -O - | bash
+      - symfony check:requirements
+      - mv composer.phar /usr/local/bin/composer
+      - composer install
+      - ls -lrt
+  pre_build:
+    commands:
+      - echo Installing source php dependencies...
+  build:
+    commands:
+      - echo Build started on `date`
+    post_build:
+      commands:
+        - echo Build completed on `date`
+artifacts:
+  type: zip
+  files:
+    - "dist/**/*"
+    - "scripts/**/*"
+    - "index.html"
+    - "style.css"
+    - "appspec.yml
