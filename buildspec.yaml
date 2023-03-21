@@ -23,8 +23,4 @@ phases:
 artifacts:
   type: zip
   files:
-    - "dist/**/*"
-    - "scripts/**/*"
-    - "index.html"
-    - "style.css"
-    - "appspec.yml
+    - "**/*"
