@@ -6,8 +6,11 @@ phases:
     commands:
       - pwd
       - ls -lrt
+      - sudo apt install php8.1-cli
       - wget https://get.symfony.com/cli/installer -O - | bash
-      - APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear
+      - export APP_ENV=prod 
+      - export APP_DEBUG=0 
+      - php bin/console cache:clear
       - composer install --no-dev --optimize-autoloader
       - ls -lrt
   pre_build:
