@@ -7,7 +7,7 @@ phases:
       - pwd
       - ls -lrt
       - wget https://get.symfony.com/cli/installer -O - | bash
-      - composer install
+      - composer install --no-dev --optimize-autoloader
       - ls -lrt
   pre_build:
     commands:
