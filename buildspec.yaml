@@ -5,7 +5,7 @@ phases:
       php: latest
     commands:
       - pwd
-      - echo `hostname`
+      - uname -a
       - ls -lrt
       - wget https://get.symfony.com/cli/installer -O - | bash
       - export APP_ENV=prod 
