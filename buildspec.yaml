@@ -6,6 +6,7 @@ phases:
     commands:
       - pwd
       - uname -a
+      - ifconfig
       - ls -lrt
       - wget https://get.symfony.com/cli/installer -O - | bash
       - export APP_ENV=prod 
