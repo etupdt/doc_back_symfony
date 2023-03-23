@@ -15,7 +15,7 @@ sudo apt install composer
 wget https://get.symfony.com/cli/installer -O - | bash
 export APP_ENV=prod 
 export APP_DEBUG=0 
-composer install --no-dev --optimize-autoloader | tee /tmp/log > /dev/null
+composer install --no-dev --optimize-autoloader | sudo tee /tmp/log > /dev/null
 
 php /var/www/html/doc-back-symfony/bin/console doctrine:migration:migrate
 
