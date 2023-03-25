@@ -13,6 +13,7 @@ echo "Include /var/www/html/doc-back-symfony/scripts/000-default-9443.conf" | su
 export APP_ENV=prod 
 export APP_DEBUG=0 
 
+sudo chmod 755 /var/www/html/doc-back-symfony/composer.phar
 /var/www/html/doc-back-symfony/composer.phar install --no-dev --optimize-autoloader
 
 php /var/www/html/doc-back-symfony/bin/console doctrine:migration:migrate
@@ -22,3 +23,4 @@ sudo service apache2 start
 #sudo yum update -y
 #sudo yum install -y httpd
 #sudo systemctl start httpd
+
