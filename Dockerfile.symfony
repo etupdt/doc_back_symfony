@@ -28,6 +28,10 @@ RUN pwd
 RUN ls -lrta ../
 RUN ls -lrta ./
 
+WORKDIR /etc/apache2/ssl
+
+COPY ./ ./
+
 WORKDIR /var/www/html/doc_back_symfony
 
 ADD ./ ./

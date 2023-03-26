@@ -5,7 +5,7 @@ echo 'exec installapache.sh'
 apt update
 apt install apache2
 
-##### sudo apt install php8.1-cli
+apt install php8.1-cli
 apt install libapache2-mod-php
 
 cat /etc/apache2/sites-available/000-default.conf | grep -v "9443.conf" | tee /etc/apache2/sites-available/000-default.conf > /dev/null
@@ -17,7 +17,6 @@ echo "Listen 9443" | tee -a /etc/apache2/ports.conf > /dev/null
 export APP_ENV=prod 
 export APP_DEBUG=0 
 
-#sudo chmod 755 /var/www/html/doc-back-symfonpwgen -sBv 15 | tail -1y/composer.phar
 ./composer.phar install --no-dev --optimize-autoloader
 
 php bin/console doctrine:migration:migrate
@@ -25,18 +24,22 @@ php bin/console doctrine:migration:migrate
 apt install pwgen -y
 
 passphrase=$(pwgen -sBv 30 | tail -1)
-sed -i .env "s/{{Passphrase}}/$passphrase/g"
 
-openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -passout pass:$passphrase
+sed -i "s/{{Passphrase}}/$passphrase/g" '.env'
+
+mkdir config/jwt/
+
+openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:$passphrase
 openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:$passphrase
+
+chown -R www-data:www-data ../
+
+unlink /var/log/apache2/access.log
+unlink /var/log/apache2/error.log
 
 a2enmod rewrite
 a2enmod ssl 
 
 service apache2 start
-
-#sudo yum update -y
-#sudo yum install -y httpd
-#sudo systemctl start httpd
 
 tail -f /dev/null

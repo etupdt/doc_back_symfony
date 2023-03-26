@@ -19,9 +19,9 @@ services:
     container_name: apache-php
     ports:
       - "80:9443"
-
     volumes: 
       - ./:/var/www/html/doc_back_symfony
+      - ssl:/etc/apache2/ssl
     build:
       context: ./
       dockerfile: Dockerfile.symfony
@@ -36,3 +36,9 @@ networks:
 
 volumes:
   doc_back_symfony:
+  ssl:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: N:\apache\ssl
