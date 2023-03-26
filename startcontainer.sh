@@ -1,5 +1,5 @@
 
-cd /var/www/html/doc_back_symfony
+#cd /var/www/html/doc_back_symfony
 
 ./composer.phar install --no-dev --optimize-autoloader
 
