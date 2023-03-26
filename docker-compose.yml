@@ -25,6 +25,8 @@ services:
     hostname: apache-php
     networks:
       back:
+    depends_on:
+      - database
 
 networks:
   back:
