@@ -17,10 +17,18 @@ echo "Listen 9443" | tee -a /etc/apache2/ports.conf > /dev/null
 export APP_ENV=prod 
 export APP_DEBUG=0 
 
-#sudo chmod 755 /var/www/html/doc-back-symfony/composer.phar
+#sudo chmod 755 /var/www/html/doc-back-symfonpwgen -sBv 15 | tail -1y/composer.phar
 ./composer.phar install --no-dev --optimize-autoloader
 
 php bin/console doctrine:migration:migrate
+
+apt install pwgen -y
+
+passphrase=$(pwgen -sBv 30 | tail -1)
+sed -i .env "s/{{Passphrase}}/$passphrase/g"
+
+openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -passout pass:$passphrase
+openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:$passphrase
 
 a2enmod rewrite
 a2enmod ssl 
