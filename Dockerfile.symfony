@@ -1,0 +1,63 @@
+FROM php:8.1-apache
+
+######## export BUILDKIT_PROGRESS=plain       ==> dans la console pour voi le detail du build
+#COPY ./000-default.conf /etc/apache2/sites-available
+
+#RUN cat /etc/apache2/sites-available/000-default.conf
+
+#COPY ./ssl /etc/apache2/
+#COPY ./ssl/* /etc/apache2/ssl/
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install wget
+RUN apt-get install zip -y
+RUN apt-get install netcat -y
+RUN apt-get install iputils-ping -y
+
+#RUN ping database
+
+#RUN apt-get install locate -y
+#RUN apt-get install -y php8-mysql 
+
+#RUN nc -v 192.168.1.37 3306
+#RUN updatedb
+#RUN locate php.ini
+
+RUN pwd
+RUN ls -lrta ../
+RUN ls -lrta ./
+
+WORKDIR /var/www/html/doc_back_symfony
+
+ADD ./ ./
+
+RUN pwd
+RUN ls -lrta ../
+RUN ls -lrta ./
+
+RUN cat .env
+
+RUN docker-php-ext-install pdo pdo_mysql
+#RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
+#RUN wget https://get.symfony.com/cli/installer -O - | bash
+#RUN export PATH="$HOME/.symfony5/bin:$PATH"
+#RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+#RUN php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+#RUN php composer-setup.php
+#RUN php -r "unlink('composer-setup.php');"
+
+RUN ls -lrt
+
+RUN export APP_ENV=prod 
+RUN export APP_DEBUG=0 
+ENV COMPOSER_ALLOW_SUPERUSER=1
+#RUN ./composer.phar update
+#RUN sleep 40
+
+RUN a2enmod rewrite
+RUN a2enmod ssl 
+RUN service apache2 restart
+
+CMD ["composer.phar", "install", "--no-dev", "--optimize-autoloader"]
+#CMD ["sh", "-c", "./startcontainer.sh"]
