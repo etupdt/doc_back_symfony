@@ -13,6 +13,7 @@ RUN apt-get install wget
 RUN apt-get install zip -y
 RUN apt-get install netcat -y
 RUN apt-get install iputils-ping -y
+RUN apt-get install net-tools -y
 
 #RUN ping database
 
@@ -58,6 +59,8 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 #RUN a2enmod rewrite
 #RUN a2enmod ssl 
 #RUN service apache2 restart
+
+EXPOSE 9443
 
 #CMD ["composer.phar", "install", "--no-dev", "--optimize-autoloader"]
 CMD ["sh", "-c", "./startcontainer.sh"]

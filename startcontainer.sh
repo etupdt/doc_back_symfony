@@ -11,6 +11,9 @@ apt install libapache2-mod-php
 cat /etc/apache2/sites-available/000-default.conf | grep -v "9443.conf" | tee /etc/apache2/sites-available/000-default.conf > /dev/null
 echo "Include /var/www/html/doc_back_symfony/scripts/000-default-9443.conf" | tee -a /etc/apache2/sites-available/000-default.conf > /dev/null
 
+cat /etc/apache2/ports.conf | grep -v "9443" | tee /etc/apache2/ports.conf > /dev/null
+echo "Listen 9443" | tee -a /etc/apache2/ports.conf > /dev/null
+
 export APP_ENV=prod 
 export APP_DEBUG=0 
 

@@ -17,6 +17,9 @@ services:
 
   apache-php:
     container_name: apache-php
+    ports:
+      - "80:9443"
+
     volumes: 
       - ./:/var/www/html/doc_back_symfony
     build:
