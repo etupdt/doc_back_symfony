@@ -49,15 +49,15 @@ RUN docker-php-ext-install pdo pdo_mysql
 
 RUN ls -lrt
 
-RUN export APP_ENV=prod 
-RUN export APP_DEBUG=0 
+#RUN export APP_ENV=prod 
+#RUN export APP_DEBUG=0 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 #RUN ./composer.phar update
 #RUN sleep 40
 
-RUN a2enmod rewrite
-RUN a2enmod ssl 
-RUN service apache2 restart
+#RUN a2enmod rewrite
+#RUN a2enmod ssl 
+#RUN service apache2 restart
 
 #CMD ["composer.phar", "install", "--no-dev", "--optimize-autoloader"]
 CMD ["sh", "-c", "./startcontainer.sh"]
