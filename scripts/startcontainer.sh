@@ -5,6 +5,8 @@ echo 'exec installapache.sh'
 apt update
 apt install apache2
 
+apt install locate
+
 apt install php8.1-cli
 apt install libapache2-mod-php
 
@@ -25,17 +27,24 @@ apt install pwgen -y
 
 passphrase=$(pwgen -sBv 30 | tail -1)
 
-sed -i "s/{{Passphrase}}/$passphrase/g" '.env'
+sed -i "s/^JWT_PASSPHRASE=.*$/JWT_PASSPHRASE=$passphrase/g" '.env'
 
 mkdir config/jwt/
 
+echo "creation de la clé privée"
 openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096 -pass pass:$passphrase
-openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:$passphrase
+cat config/jwt/private.pem
 
+echo "creation de la clé public"
+openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout -passin pass:$passphrase
+cat config/jwt/public.pem
+
+echo "change mod tout le site"
 chown -R www-data:www-data ../
 
 unlink /var/log/apache2/access.log
 unlink /var/log/apache2/error.log
+unlink /var/log/apache2/other_vhosts_access.log
 
 a2enmod rewrite
 a2enmod ssl 
