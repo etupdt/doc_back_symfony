@@ -17,6 +17,7 @@ services:
 
   apache-php:
     container_name: apache-php
+    restart: always
     ports:
       - "80:9443"
     volumes: 

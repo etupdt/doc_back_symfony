@@ -1,6 +1,7 @@
 FROM php:8.1-apache
 
 ######## export BUILDKIT_PROGRESS=plain       ==> dans la console pour voi le detail du build
+######## npx degit GIT_REPO                   ==> clone sans le rep .git
 #COPY ./000-default.conf /etc/apache2/sites-available
 
 #RUN cat /etc/apache2/sites-available/000-default.conf
