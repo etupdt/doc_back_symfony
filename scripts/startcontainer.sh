@@ -19,7 +19,7 @@ echo "Listen 9443" | tee -a /etc/apache2/ports.conf > /dev/null
 #export APP_ENV=prod 
 #export APP_DEBUG=0 
 
-./composer.phar install --${APP_ENV} --optimize-autoloader
+./composer.phar install --no-dev --optimize-autoloader
 
 php bin/console doctrine:migration:migrate
 
