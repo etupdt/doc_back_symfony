@@ -16,8 +16,8 @@ echo "Include /var/www/html/doc_back_symfony/scripts/000-default-9443.conf" | te
 cat /etc/apache2/ports.conf | grep -v "9443" | tee /etc/apache2/ports.conf > /dev/null
 echo "Listen 9443" | tee -a /etc/apache2/ports.conf > /dev/null
 
-export APP_ENV=prod 
-export APP_DEBUG=0 
+#export APP_ENV=prod 
+#export APP_DEBUG=0 
 
 ./composer.phar install --no-dev --optimize-autoloader
 

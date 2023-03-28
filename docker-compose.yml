@@ -18,11 +18,12 @@ services:
   apache-php:
     container_name: apache-php
     restart: always
+    env_file: .env
     ports:
       - "80:9443"
     volumes: 
-      - ./:/var/www/html/doc_back_symfony
-      - ssl:/etc/apache2/ssl
+      - ${APP_SYMFONY}:/var/www/html/doc_back_symfony
+      - ${SSL}:/etc/apache2/ssl
     build:
       context: ./
       dockerfile: Dockerfile.symfony
@@ -37,10 +38,15 @@ networks:
 
 volumes:
   doc_back_symfony:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${APP_SYMFONY_MOUNT}
   ssl:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: C:\users\denis\ssl
+      device: ${SSL_MOUNT}
       
