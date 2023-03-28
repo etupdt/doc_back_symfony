@@ -18,6 +18,8 @@ services:
   apache-php:
     container_name: apache-php
     restart: always
+    environment:
+      - SERVER_NAME=${SERVER_NAME}
     ports:
       - "80:9443"
     volumes: 

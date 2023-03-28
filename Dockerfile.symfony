@@ -58,6 +58,7 @@ RUN ls -lrt
 #RUN export APP_ENV=prod 
 #RUN export APP_DEBUG=0 
 ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV SERVER_NAME=SERVER_NAME
 #RUN ./composer.phar update
 #RUN sleep 40
 
