@@ -27,7 +27,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo "Copying files"
-      - cp -r * $CODEBUILD_CDKPROJECTEFS
+      - cp -R .* $CODEBUILD_CDKPROJECTEFS
 
 #artifacts:
 #  type: zip
