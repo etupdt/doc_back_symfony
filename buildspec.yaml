@@ -28,7 +28,8 @@ phases:
       - echo "Copying files"
       - cp -r .[!.]* $CODEBUILD_CDKPROJECTEFS
 
-#artifacts:
-#  type: zip
-#  files:
-#    - "**/*"
+artifacts:
+  type: zip
+  files:
+    - "appspec.yml"
+    - "scripts/startcontainer.sh"

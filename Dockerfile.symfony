@@ -69,4 +69,4 @@ ENV SERVER_NAME=SERVER_NAME
 EXPOSE 9443
 
 #CMD ["composer.phar", "install", "--no-dev", "--optimize-autoloader"]
-CMD ["sh", "-c", "./scripts/startcontainer.sh"]
+#CMD ["sh", "-c", "./scripts/startcontainer.sh"]
