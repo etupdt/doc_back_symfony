@@ -7,7 +7,6 @@ phases:
 #    commands:
 #      - mvn compile -Dgpg.skip=true -Dmaven.repo.local=$CODEBUILD_CDKPROJECTEFS
 
-
     commands:
       - pwd
       - uname -a
@@ -27,7 +26,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo "Copying files"
-      - cp -r .* $CODEBUILD_CDKPROJECTEFS
+      - cp -r .[!.]* $CODEBUILD_CDKPROJECTEFS
 
 #artifacts:
 #  type: zip
