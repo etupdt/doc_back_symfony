@@ -5,5 +5,5 @@ files:
     destination: /var/www/html/doc-back-symfony
 hooks:
    BeforeInstall:
-    - location: scripts/startcontainer.sh
+    - location: scripts/restartapache.sh
       runas: root

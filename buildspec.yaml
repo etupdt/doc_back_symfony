@@ -32,4 +32,5 @@ artifacts:
   type: zip
   files:
     - "appspec.yml"
-    - "scripts/startcontainer.sh"
+    - "scripts/restartapache.sh"
+    - "imagedefinitions.json"

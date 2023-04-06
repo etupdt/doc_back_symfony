@@ -1,0 +1,6 @@
+[
+  {
+    "name": "apache-php",
+    "imageUri": "498746666064.dkr.ecr.eu-west-3.amazonaws.com/testsymfony-apache-php:latest"
+  }
+]
