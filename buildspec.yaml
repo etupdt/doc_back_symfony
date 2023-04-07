@@ -28,6 +28,7 @@ phases:
       - echo "Copying files"
       - cp -r .[!.]* $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
       - cp -r * $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
+      - chmod 755 $CODEBUILD_CDKPROJECTEFS/doc_back_symfony/installapache.sh
       - ls -lrta $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
 
 artifacts:
