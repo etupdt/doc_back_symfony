@@ -2,6 +2,9 @@
 
 
 #!/bin/bash
+
+sudo mkdir -p /var/log/deploy
+
 echo 'exec installapache.sh' | sudo tee /var/log/deploy/installapache.log
 
 sudo apt update | sudo tee -a /var/log/deploy/installapache.log

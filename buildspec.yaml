@@ -27,6 +27,7 @@ phases:
       - echo Build completed on `date`
       - echo "Copying files"
       - cp -r .[!.]* $CODEBUILD_CDKPROJECTEFS
+      - cp -r * $CODEBUILD_CDKPROJECTEFS
       - ls -lrta $CODEBUILD_CDKPROJECTEFS
 
 artifacts:
