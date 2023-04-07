@@ -29,7 +29,7 @@ phases:
 #      - mkdir -p $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
       - cp -r .[!.]* $CODEBUILD_CDKPROJECTEFS
       - cp -r * $CODEBUILD_CDKPROJECTEFS
-      - chmod -r 755 $CODEBUILD_CDKPROJECTEFS/scripts
+      - chmod -R 755 $CODEBUILD_CDKPROJECTEFS/scripts
       - ls -lrta $CODEBUILD_CDKPROJECTEFS
 
 artifacts:
