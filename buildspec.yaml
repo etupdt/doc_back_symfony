@@ -27,10 +27,11 @@ phases:
       - echo Build completed on `date`
       - echo "Copying files"
       - cp -r .[!.]* $CODEBUILD_CDKPROJECTEFS
+      - ls -lrta $CODEBUILD_CDKPROJECTEFS
 
 artifacts:
   type: zip
   files:
     - "appspec.yml"
-    - "scripts/restartapache.sh"
-    - "imagedefinitions.json"
+    - "scripts/installapache.sh"
+#    - "imagedefinitions.json"
