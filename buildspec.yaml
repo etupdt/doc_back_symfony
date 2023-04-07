@@ -26,11 +26,11 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo "Copying files"
-      - mkdir -p $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
-      - cp -r .[!.]* $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
-      - cp -r * $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
-      - chmod 755 $CODEBUILD_CDKPROJECTEFS/doc_back_symfony/scripts/installapache.sh
-      - ls -lrta $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
+#      - mkdir -p $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
+      - cp -r .[!.]* $CODEBUILD_CDKPROJECTEFS
+      - cp -r * $CODEBUILD_CDKPROJECTEFS
+      - chmod -r 755 $CODEBUILD_CDKPROJECTEFS/scripts
+      - ls -lrta $CODEBUILD_CDKPROJECTEFS
 
 artifacts:
   type: zip
