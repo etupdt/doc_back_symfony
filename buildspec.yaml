@@ -26,6 +26,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo "Copying files"
+      - mkdir -p $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
       - cp -r .[!.]* $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
       - cp -r * $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
       - chmod 755 $CODEBUILD_CDKPROJECTEFS/doc_back_symfony/scripts/installapache.sh
