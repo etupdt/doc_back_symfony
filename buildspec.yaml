@@ -26,9 +26,10 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo "Copying files"
-      - cp -r .[!.]* $CODEBUILD_CDKPROJECTEFS
-      - cp -r * $CODEBUILD_CDKPROJECTEFS
-      - ls -lrta $CODEBUILD_CDKPROJECTEFS
+      - mkdir $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
+      - cp -r .[!.]* $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
+      - cp -r * $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
+      - ls -lrta $CODEBUILD_CDKPROJECTEFS/doc_back_symfony
 
 artifacts:
   type: zip
