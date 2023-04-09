@@ -10,17 +10,11 @@ permissions:
     mode: 755
     type:
       - directory
-  - object: /var/www/html/doc_back_symfony/scripts/**
+  - object: /var/www/html/doc_back_symfony/scripts/installapache-aws.sh
     mode: 755
     type:
       - file
 hooks:
-   BeforeInstall:
-    - location: scripts/startapache.sh
-      runas: root
    Install:
     - location: scripts/installapache-aws.sh
-      runas: root
-   AfterInstall:
-    - location: scripts/restartapache.sh
       runas: root
