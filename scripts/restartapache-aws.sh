@@ -35,10 +35,10 @@ sudo amazon-linux-extras install php8.2 -y | sudo tee -a /var/log/deploy/restart
 sudo yum install php-xml -y | sudo tee -a /var/log/deploy/restartapache.log
 #sudo yum install libapache2-mod-php | sudo tee -a /var/log/deploy/restartapache.log
 
-cat /etc/httpd/conf/httpd.conf | grep -v "httpd-vhosts-9443.conf" | sudo tee /var/log/deploy/restartapache.log > /dev/null
-echo "Include /var/www/html/doc_back_symfony/scripts/httpd-vhosts-9443.conf" | sudo tee -a /var/log/deploy/restartapache.log > /dev/null
+cat /etc/httpd/conf/httpd.conf | grep -v "httpd-vhosts-9443.conf" | sudo tee /etc/httpd/conf/httpd.conf > /dev/null
+echo "Include /var/www/html/doc_back_symfony/scripts/httpd-vhosts-9443.conf" | sudo tee -a /etc/httpd/conf/httpd.conf > /dev/null
 
-cat /etc/httpd/conf/httpd.conf | grep -v "Listen 9443" | sudo tee /var/log/deploy/restartapache.log > /dev/null
+cat /etc/httpd/conf/httpd.conf | grep -v "Listen 9443" | sudo tee /etc/httpd/conf/httpd.conf > /dev/null
 echo "Listen 9443" | sudo tee -a /etc/httpd/conf/httpd.conf > /dev/null
 
 #export APP_ENV=prod 
