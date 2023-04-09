@@ -36,5 +36,5 @@ artifacts:
   type: zip
   files:
     - "appspec.yml"
-#    - "scripts/startapache-aws.sh"
+    - "scripts/startapache-aws.sh"
 #    - "imagedefinitions.json"

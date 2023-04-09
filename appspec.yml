@@ -16,11 +16,11 @@ file_exists_behavior: OVERWRITE
 #      - file
 hooks:
   BeforeInstall:
-    - location: scripts/startapache-aws.sh
+    - location: /var/www/html/doc_back_symfonyscripts/startapache-aws.sh
       runas: root
   Install:
-    - location: scripts/installapache-aws.sh
+    - location: /var/www/html/doc_back_symfonyscripts/installapache-aws.sh
       runas: root
   AfterInstall:
-    - location: scripts/restartapache-aws.sh
+    - location: /var/www/html/doc_back_symfonyscripts/restartapache-aws.sh
       runas: root
