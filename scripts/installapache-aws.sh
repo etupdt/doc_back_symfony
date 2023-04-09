@@ -37,6 +37,7 @@ sudo ln -sf /usr/local/bin/composer /usr/bin/composer | sudo tee -a /var/log/dep
 sudo composer install --no-dev --optimize-autoloader | sudo tee -a /var/log/deploy/installapache.log
 
 sudo php bin/console doctrine:migration:migrate | sudo tee -a /var/log/deploy/installapache.log
+sudo php bin/console doctrine:database:create | sudo tee -a /var/log/deploy/installapache.log
 
 passphrase=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 32 | xargs)
 

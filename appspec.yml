@@ -5,6 +5,15 @@ files:
     destination: /var/www/html/doc_back_symfony
     overwrite: true
 file_exists_behavior: OVERWRITE
+permissions:
+  - object: /var/www/html/doc_back_symfony/scripts
+    mode: 755
+    type:
+      - directory
+  - object: /var/www/html/doc_back_symfony/scripts/*.sh
+    mode: 755
+    type:
+      - file
 hooks:
    BeforeInstall:
     - location: scripts/startapache.sh
