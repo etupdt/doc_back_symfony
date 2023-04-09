@@ -9,6 +9,21 @@ sudo bash mariadb_repo_setup --os-type=rhel --os-version=7 --mariadb-server-vers
 sudo yum install MariaDB-server MariaDB-client -y
 sudo systemctl enable --now mariadb
 
+sudo mysql -sfu root <<EOS
+-- set root password
+UPDATE mysql.user SET Password=PASSWORD('password') WHERE User='root';
+-- delete anonymous users
+DELETE FROM mysql.user WHERE User='';
+-- delete remote root capabilities
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+-- drop database 'test'
+DROP DATABASE IF EXISTS test;
+-- also make sure there are lingering permissions to it
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+-- make changes immediately
+FLUSH PRIVILEGES;
+EOS
+
 echo 'debut installapache' | sudo tee /var/log/deploy/installapache.log
 
 sudo yum update | sudo tee -a /var/log/deploy/installapache.log
@@ -37,7 +52,7 @@ sudo ln -sf /usr/local/bin/composer /usr/bin/composer | sudo tee -a /var/log/dep
 sudo composer install --no-dev --optimize-autoloader | sudo tee -a /var/log/deploy/installapache.log
 
 sudo php bin/console doctrine:database:create | sudo tee -a /var/log/deploy/installapache.log
-sudo php bin/console doctrine:migration:migrate | sudo tee -a /var/log/deploy/installapache.log
+sudo php bin/console doctrine:migration:migrate --quiet | sudo tee -a /var/log/deploy/installapache.log
 
 passphrase=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 32 | xargs)
 
