@@ -23,13 +23,13 @@ echo "Listen 9443" | sudo tee -a /etc/httpd/conf/httpd.conf > /dev/null
 #export APP_DEBUG=0 
 
 #sudo mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport .efs.eu-west-3a.amazonaws.com:/ ~/doc_back_symfony 
-sudo curl -sS https://getcomposer.org/installer | sudo php
-sudo mv -f composer.phar /usr/local/bin/composer
-sudo ln -sf /usr/local/bin/composer /usr/bin/composer
+sudo curl -sS https://getcomposer.org/installer | sudo php | sudo tee -a /var/log/deploy/installapache.log
+sudo mv -f composer.phar /usr/local/bin/composer | sudo tee -a /var/log/deploy/installapache.log
+sudo ln -sf /usr/local/bin/composer /usr/bin/composer | sudo tee -a /var/log/deploy/installapache.log
 
 sudo composer install --no-dev --optimize-autoloader | sudo tee -a /var/log/deploy/installapache.log
 
-sudo php bin/console doctrine:migration:migrate
+sudo php bin/console doctrine:migration:migrate | sudo tee -a /var/log/deploy/installapache.log
 
 passphrase=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 32 | xargs)
 
