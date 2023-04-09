@@ -1,6 +1,6 @@
 
 #!/bin/bash
-echo 'exec installapache.sh'
+echo 'restart'
 
 apt update
 apt install apache2
