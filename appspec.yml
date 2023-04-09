@@ -7,8 +7,8 @@ files:
 file_exists_behavior: OVERWRITE
 hooks:
   BeforeInstall:
-    - location: scripts/startapache-aws.sh
+    - location: ./startapache-aws.sh
       runas: root
   AfterInstall:
-    - location: scripts/restartapache-aws.sh
+    - location: ./restartapache-aws.sh
       runas: root

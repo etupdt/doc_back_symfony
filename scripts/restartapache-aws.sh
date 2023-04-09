@@ -4,10 +4,10 @@ sudo mkdir -p /var/log/deploy
 
 echo 'debut install mariadb' | sudo tee /var/log/deploy/restartapache.log
 
-sudo curl -LsS -O https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
-sudo bash mariadb_repo_setup --os-type=rhel --os-version=7 --mariadb-server-version=10.6
-sudo yum install MariaDB-server MariaDB-client -y
-sudo systemctl enable --now mariadb
+sudo curl -LsS -O https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo tee -a /var/log/deploy/restartapache.log
+sudo bash mariadb_repo_setup --os-type=rhel --os-version=7 --mariadb-server-version=10.6 | sudo tee -a /var/log/deploy/restartapache.log
+sudo yum install MariaDB-server MariaDB-client -y | sudo tee -a /var/log/deploy/restartapache.log
+sudo systemctl enable --now mariadb | sudo tee -a /var/log/deploy/restartapache.log
 
 sudo mysql -sfu root <<EOS
 -- set root password
@@ -24,7 +24,7 @@ DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
 FLUSH PRIVILEGES;
 EOS
 
-echo 'debut restartapache' | sudo tee /var/log/deploy/restartapache.log
+echo 'debut restartapache' | sudo tee -a /var/log/deploy/restartapache.log
 
 sudo yum update | sudo tee -a /var/log/deploy/restartapache.log
 sudo yum install httpd -y | sudo tee -a /var/log/deploy/restartapache.log
