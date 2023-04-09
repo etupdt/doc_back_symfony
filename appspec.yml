@@ -5,5 +5,5 @@ files:
     destination: /var/www/html/doc_back_symfony
 hooks:
    BeforeInstall:
-    - location: scripts/installapache.sh
+    - location: scripts/installapache-aws.sh
       runas: root

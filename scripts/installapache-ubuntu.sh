@@ -1,19 +1,16 @@
 #!/bin/bash
 
-
-#!/bin/bash
-
 sudo mkdir -p /var/log/deploy
 
-echo 'exec installapache.sh' | sudo tee /var/log/deploy/installapache.log
+echo 'exec installapache ' | sudo tee /var/log/deploy/installapache.log
 
-sudo apt update | sudo tee -a /var/log/deploy/installapache.log
-sudo apt install apache2 | tee -a /var/log/deploy/installapache.log
+sudo yum update | sudo tee -a /var/log/deploy/installapache.log
+sudo yum install apache2 | tee -a /var/log/deploy/installapache.log
 
-sudo apt install locate | sudo tee -a /var/log/deploy/installapache.log
+sudo yum install locate | sudo tee -a /var/log/deploy/installapache.log
 
-sudo apt install php8.1-cli | sudo tee -a /var/log/deploy/installapache.log
-sudo apt install libapache2-mod-php | sudo tee -a /var/log/deploy/installapache.log
+sudo yum install php8.1-cli | sudo tee -a /var/log/deploy/installapache.log
+sudo yum install libapache2-mod-php | sudo tee -a /var/log/deploy/installapache.log
 
 cat /etc/apache2/sites-available/000-default.conf | grep -v "9443.conf" | sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null
 echo "Include /var/www/html/doc_back_symfony/scripts/000-default-9443.conf" | sudo tee -a /etc/apache2/sites-available/000-default.conf > /dev/null
@@ -30,7 +27,7 @@ echo "Listen 9443" | sudo tee -a /etc/apache2/ports.conf > /dev/null
 
 php bin/console doctrine:migration:migrate
 
-sudo apt install pwgen -y | sudo tee -a /var/log/deploy/installapache.log
+sudo yum install pwgen -y | sudo tee -a /var/log/deploy/installapache.log
 
 passphrase=$(pwgen -sBv 30 | tail -1)
 
