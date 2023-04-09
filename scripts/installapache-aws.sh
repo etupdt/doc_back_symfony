@@ -4,7 +4,7 @@ sudo mkdir -p /var/log/deploy
 
 echo 'debut install mariadb' | sudo tee /var/log/deploy/installapache.log
 
-curl -LsS -O https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+sudo curl -LsS -O https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
 sudo bash mariadb_repo_setup --os-type=rhel --os-version=7 --mariadb-server-version=10.6
 sudo yum install MariaDB-server MariaDB-client -y
 sudo systemctl enable --now mariadb
@@ -16,7 +16,7 @@ sudo yum install httpd -y | sudo tee -a /var/log/deploy/installapache.log
 
 #sudo yum install locate | sudo tee -a /var/log/deploy/installapache.log
 
-sudo amazon-linux-extras install php8.2 | sudo tee -a /var/log/deploy/installapache.log
+sudo amazon-linux-extras install php8.2 -y | sudo tee -a /var/log/deploy/installapache.log
 sudo yum install php-xml -y | sudo tee -a /var/log/deploy/installapache.log
 #sudo yum install libapache2-mod-php | sudo tee -a /var/log/deploy/installapache.log
 
@@ -36,8 +36,8 @@ sudo ln -sf /usr/local/bin/composer /usr/bin/composer | sudo tee -a /var/log/dep
 
 sudo composer install --no-dev --optimize-autoloader | sudo tee -a /var/log/deploy/installapache.log
 
-sudo php bin/console doctrine:migration:migrate | sudo tee -a /var/log/deploy/installapache.log
 sudo php bin/console doctrine:database:create | sudo tee -a /var/log/deploy/installapache.log
+sudo php bin/console doctrine:migration:migrate | sudo tee -a /var/log/deploy/installapache.log
 
 passphrase=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 32 | xargs)
 
