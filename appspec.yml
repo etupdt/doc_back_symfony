@@ -10,7 +10,7 @@ permissions:
     mode: 755
     type:
       - directory
-  - object: /var/www/html/doc_back_symfony/scripts/*.sh
+  - object: /var/www/html/doc_back_symfony/scripts/**
     mode: 755
     type:
       - file
