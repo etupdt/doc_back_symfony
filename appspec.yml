@@ -15,6 +15,12 @@ permissions:
     type:
       - file
 hooks:
-   Install:
+  BeforeInstall:
+    - location: scripts/startapache-aws.sh
+      runas: root
+  Install:
     - location: scripts/installapache-aws.sh
+      runas: root
+  AfterInstall:
+    - location: scripts/restartapache-aws.sh
       runas: root
