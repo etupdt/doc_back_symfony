@@ -5,18 +5,18 @@ sudo mkdir -p /var/log/deploy
 echo 'debut installapache' | sudo tee /var/log/deploy/installapache.log
 
 sudo yum update | sudo tee -a /var/log/deploy/installapache.log
-sudo yum install httpd | sudo tee -a /var/log/deploy/installapache.log
+sudo yum install httpd -y | sudo tee -a /var/log/deploy/installapache.log
 
 #sudo yum install locate | sudo tee -a /var/log/deploy/installapache.log
 
-sudo amazon-linux-extras install php8.1 | sudo tee -a /var/log/deploy/installapache.log
+sudo amazon-linux-extras install php8.2 | sudo tee -a /var/log/deploy/installapache.log
 sudo yum install php-xml -y | sudo tee -a /var/log/deploy/installapache.log
 #sudo yum install libapache2-mod-php | sudo tee -a /var/log/deploy/installapache.log
 
-cat /etc/httpd/conf/httpd.conf | grep -v "httpd-vhosts-9443.conf" | sudo tee /etc/httpd/conf/httpd.conf > /dev/null
-echo "Include /var/www/html/doc_back_symfony/scripts/httpd-vhosts-9443.conf" | sudo tee -a /etc/httpd/conf/httpd.conf > /dev/null
+cat /etc/httpd/conf/httpd.conf | grep -v "httpd-vhosts-9443.conf" | sudo tee /var/log/deploy/installapache.log > /dev/null
+echo "Include /var/www/html/doc_back_symfony/scripts/httpd-vhosts-9443.conf" | sudo tee -a /var/log/deploy/installapache.log > /dev/null
 
-cat /etc/httpd/conf/httpd.conf | grep -v "Listen 9443" | sudo tee /etc/httpd/conf/httpd.conf > /dev/null
+cat /etc/httpd/conf/httpd.conf | grep -v "Listen 9443" | sudo tee /var/log/deploy/installapache.log > /dev/null
 echo "Listen 9443" | sudo tee -a /etc/httpd/conf/httpd.conf > /dev/null
 
 #export APP_ENV=prod 

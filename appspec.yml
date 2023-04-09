@@ -3,7 +3,14 @@ os: linux
 files:
   - source: /
     destination: /var/www/html/doc_back_symfony
+    overwrite: true
 hooks:
    BeforeInstall:
+    - location: scripts/startapache.sh
+      runas: root
+   Install:
     - location: scripts/installapache-aws.sh
+      runas: root
+   AfterInstall:
+    - location: scripts/restartapache.sh
       runas: root
