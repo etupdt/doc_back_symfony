@@ -37,4 +37,5 @@ artifacts:
   files:
     - "appspec.yml"
     - "scripts/startapache-aws.sh"
+    - "scripts/restartapache-aws.sh"
 #    - "imagedefinitions.json"

@@ -5,21 +5,9 @@ files:
     destination: /var/www/html/doc_back_symfony
     overwrite: true
 file_exists_behavior: OVERWRITE
-permissions:
-  - object: scripts
-    mode: 755
-    type:
-      - directory
-  - object: scripts/*.sh
-    mode: 755
-    type:
-      - file
 hooks:
   BeforeInstall:
     - location: scripts/startapache-aws.sh
-      runas: root
-  Install:
-    - location: scripts/installapache-aws.sh
       runas: root
   AfterInstall:
     - location: scripts/restartapache-aws.sh
