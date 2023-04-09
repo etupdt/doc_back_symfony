@@ -4,6 +4,7 @@ files:
   - source: /
     destination: /var/www/html/doc_back_symfony
     overwrite: true
+file_exists_behavior: OVERWRITE
 hooks:
    BeforeInstall:
     - location: scripts/startapache.sh

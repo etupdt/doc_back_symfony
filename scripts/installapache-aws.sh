@@ -2,6 +2,13 @@
 
 sudo mkdir -p /var/log/deploy
 
+echo 'debut install mariadb' | sudo tee /var/log/deploy/installapache.log
+
+curl -LsS -O https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+sudo bash mariadb_repo_setup --os-type=rhel --os-version=7 --mariadb-server-version=10.6
+sudo yum install MariaDB-server MariaDB-client -y
+sudo systemctl enable --now mariadb
+
 echo 'debut installapache' | sudo tee /var/log/deploy/installapache.log
 
 sudo yum update | sudo tee -a /var/log/deploy/installapache.log
