@@ -9,17 +9,19 @@ cd doc_back_symfony_ln
 
 #=============================================== mysql for symfony =====================================================
 echo 'mysql for symfony' | sudo tee -a $log
+ls -lrta
+ | sudo tee -a $log
 
-export user=$(grep '^DATABASE_URL=' .env | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f1)
-echo "user : $user" | sudo tee -a $log
-export password=$(grep '^DATABASE_URL=' .env | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f2)
-echo "password : $password" | sudo tee -a $log
-export host=$(grep '^DATABASE_URL=' .env | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f3)
-echo "host : $host" | sudo tee -a $log
-export port=$(grep '^DATABASE_URL=' .env | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f4)
-echo "port : $port" | sudo tee -a $log
+export user=$(grep '^DATABASE_URL=' '.env' | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f1)
+echo "user : $user" |& sudo tee -a $log
+export password=$(grep '^DATABASE_URL=' '.env' | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f2)
+echo "password : $password" |& sudo tee -a $log
+export host=$(grep '^DATABASE_URL=' '.env' | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f3)
+echo "host : $host" |& sudo tee -a $log
+export port=$(grep '^DATABASE_URL=' '.env' | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f4)
+echo "port : $port" |& sudo tee -a $log
 
-sudo mysql -sfu root <<EOS
+sudo mysql -sfu root |& sudo tee -a $log <<EOS
 -- create user with password
 CREATE USER '${user}'@'${host}' IDENTIFIED BY '$password';
 GRANT ALL PRIVILEGES ON *.* TO '${user}'@'${host}';
