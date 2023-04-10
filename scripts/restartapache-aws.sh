@@ -4,7 +4,8 @@
 
 #sudo mkdir -p /var/www/html/doc_back_symfony | sudo tee /var/log/deploy/restartapache.log
 
-cd /var/www/html/doc_back_symfony | sudo tee /var/log/deploy/restartapache.log
+sudo cd /var/www/html/doc_back_symfony | sudo tee /var/log/deploy/restartapache.log
+sudo pwd | sudo tee -a /var/log/deploy/restartapache.log
 
 echo 'debut restartapache' | sudo tee -a /var/log/deploy/restartapache.log
 
