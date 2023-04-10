@@ -5,6 +5,21 @@ echo 'debut restartapache' | sudo tee /var/log/deploy/restartapache.log
 sudo ln -s /var/www/html/doc_back_symfony doc_back_symfony_ln
 cd doc_back_symfony_ln
 
+#=============================================== mysql dor symfony =====================================================
+
+export user=$(grep '^DATABASE_URL=' .env | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f1)
+export password=$(grep '^DATABASE_URL=' .env | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f2)
+export host=$(grep '^DATABASE_URL=' .env | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f3)
+export port=$(grep '^DATABASE_URL=' .env | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f4)
+
+sudo mysql -sfu root <<EOS
+-- create user with password
+CREATE USER '${user}'@'${host}' IDENTIFIED BY '$password';
+GRANT ALL PRIVILEGES ON *.* TO '${user}'@'${host}';
+-- make changes immediately",
+FLUSH PRIVILEGES;
+EOS
+
 #=============================================== symfony =====================================================
 
 pwd | sudo tee -a /var/log/deploy/restartapache.log
