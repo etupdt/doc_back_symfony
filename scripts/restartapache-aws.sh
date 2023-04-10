@@ -1,39 +1,12 @@
 #!/bin/bash
 
-sudo mkdir -p /var/log/deploy
+#sudo mkdir -p /var/log/deploy
 
-echo 'debut install mariadb' | sudo tee /var/log/deploy/restartapache.log
+#sudo mkdir -p /var/www/html/doc_back_symfony | sudo tee /var/log/deploy/restartapache.log
 
-sudo curl -LsS -O https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo tee -a /var/log/deploy/restartapache.log
-sudo bash mariadb_repo_setup --os-type=rhel --os-version=7 --mariadb-server-version=10.6 | sudo tee -a /var/log/deploy/restartapache.log
-sudo yum install MariaDB-server MariaDB-client -y | sudo tee -a /var/log/deploy/restartapache.log
-sudo systemctl enable --now mariadb | sudo tee -a /var/log/deploy/restartapache.log
-
-sudo mysql -sfu root <<EOS
--- set root password
-UPDATE mysql.user SET Password=PASSWORD('password') WHERE User='root';
--- delete anonymous users
-DELETE FROM mysql.user WHERE User='';
--- delete remote root capabilities
-DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
--- drop database 'test'
-DROP DATABASE IF EXISTS test;
--- also make sure there are lingering permissions to it
-DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
--- make changes immediately
-FLUSH PRIVILEGES;
-EOS
+cd /var/www/html/doc_back_symfony | sudo tee /var/log/deploy/restartapache.log
 
 echo 'debut restartapache' | sudo tee -a /var/log/deploy/restartapache.log
-
-sudo yum update | sudo tee -a /var/log/deploy/restartapache.log
-sudo yum install httpd -y | sudo tee -a /var/log/deploy/restartapache.log
-
-#sudo yum install locate | sudo tee -a /var/log/deploy/restartapache.log
-
-sudo amazon-linux-extras install php8.2 -y | sudo tee -a /var/log/deploy/restartapache.log
-sudo yum install php-xml -y | sudo tee -a /var/log/deploy/restartapache.log
-#sudo yum install libapache2-mod-php | sudo tee -a /var/log/deploy/restartapache.log
 
 cat /etc/httpd/conf/httpd.conf | grep -v "httpd-vhosts-9443.conf" | sudo tee /etc/httpd/conf/httpd.conf > /dev/null
 echo "Include /var/www/html/doc_back_symfony/scripts/httpd-vhosts-9443.conf" | sudo tee -a /etc/httpd/conf/httpd.conf > /dev/null
