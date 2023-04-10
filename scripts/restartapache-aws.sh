@@ -4,10 +4,10 @@
 
 #sudo mkdir -p /var/www/html/doc_back_symfony | sudo tee /var/log/deploy/restartapache.log
 
-sudo cd /var/www/html/doc_back_symfony | sudo tee /var/log/deploy/restartapache.log
-sudo pwd | sudo tee -a /var/log/deploy/restartapache.log
+echo 'debut restartapache' | sudo tee /var/log/deploy/restartapache.log
 
-echo 'debut restartapache' | sudo tee -a /var/log/deploy/restartapache.log
+sudo cd /var/www/html/doc_back_symfony | sudo tee -a /var/log/deploy/restartapache.log
+sudo pwd | sudo tee -a /var/log/deploy/restartapache.log
 
 cat /etc/httpd/conf/httpd.conf | grep -v "httpd-vhosts-9443.conf" | sudo tee /etc/httpd/conf/httpd.conf > /dev/null
 echo "Include /var/www/html/doc_back_symfony/scripts/httpd-vhosts-9443.conf" | sudo tee -a /etc/httpd/conf/httpd.conf > /dev/null
@@ -25,8 +25,8 @@ sudo ln -sf /usr/local/bin/composer /usr/bin/composer | sudo tee -a /var/log/dep
 
 sudo composer install --no-dev --optimize-autoloader | sudo tee -a /var/log/deploy/restartapache.log
 
-sudo php bin/console doctrine:database:create | sudo tee -a /var/log/deploy/restartapache.log
-sudo php bin/console doctrine:migration:migrate --quiet | sudo tee -a /var/log/deploy/restartapache.log
+sudo cd /var/www/html/doc_back_symfony; sudo php bin/console doctrine:database:create | sudo tee -a /var/log/deploy/restartapache.log
+sudo cd /var/www/html/doc_back_symfony; php bin/console doctrine:migration:migrate --quiet | sudo tee -a /var/log/deploy/restartapache.log
 
 passphrase=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 32 | xargs)
 
