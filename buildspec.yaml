@@ -39,5 +39,4 @@ artifacts:
     - "appspec.yml"
     - "scripts/startapache-aws.sh"
     - "scripts/restartapache-aws.sh"
-    - "scripts/restartapache-aws-symfony.sh"
 #    - "imagedefinitions.json"
