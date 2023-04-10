@@ -1,16 +1,23 @@
 #!/bin/bash
 
-echo 'debut restartapache' | sudo tee /var/log/deploy/restartapache.log
+log=/var/log/deploy/restartapache.log
+
+echo 'debut restartapache' | sudo tee $log
 
 sudo ln -s /var/www/html/doc_back_symfony doc_back_symfony_ln
 cd doc_back_symfony_ln
 
-#=============================================== mysql dor symfony =====================================================
+#=============================================== mysql for symfony =====================================================
+echo 'mysql for symfony' | sudo tee -a $log
 
 export user=$(grep '^DATABASE_URL=' .env | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f1)
+echo "user : $user" | sudo tee -a $log
 export password=$(grep '^DATABASE_URL=' .env | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f2)
+echo "password : $password" | sudo tee -a $log
 export host=$(grep '^DATABASE_URL=' .env | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f3)
+echo "host : $host" | sudo tee -a $log
 export port=$(grep '^DATABASE_URL=' .env | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f4)
+echo "port : $port" | sudo tee -a $log
 
 sudo mysql -sfu root <<EOS
 -- create user with password
@@ -21,6 +28,7 @@ FLUSH PRIVILEGES;
 EOS
 
 #=============================================== symfony =====================================================
+echo 'symfony' | sudo tee -a $log
 
 pwd | sudo tee -a /var/log/deploy/restartapache.log
 
@@ -38,6 +46,7 @@ sudo php bin/console doctrine:migration:migrate --quiet | sudo tee -a /var/log/d
 #export APP_DEBUG=0 
 
 #=============================================== cle pour jwt =====================================================
+echo 'jwt' | sudo tee -a $log
 
 passphrase=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 32 | xargs)
 
@@ -62,6 +71,7 @@ cd $(pwd)/scripts
 sudo unlink 'doc_back_symfony_ln'
 
 #=============================================== apache =====================================================
+echo 'apache' | sudo tee -a $log
 
 cat /etc/httpd/conf/httpd.conf | grep -v "httpd-vhosts-9443.conf" | sudo tee /etc/httpd/conf/httpd.conf > /dev/null
 echo "Include /var/www/html/doc_back_symfony/scripts/httpd-vhosts-9443.conf" | sudo tee -a /etc/httpd/conf/httpd.conf > /dev/null
