@@ -18,15 +18,18 @@ echo "Listen 9443" | sudo tee -a /etc/httpd/conf/httpd.conf > /dev/null
 #export APP_ENV=prod 
 #export APP_DEBUG=0 
 
+#=============================================== symfony =====================================================
+
+sudo ./scripts/restartapache-aws-symfony.sh
 #sudo mount -t nfs -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport .efs.eu-west-3a.amazonaws.com:/ ~/doc_back_symfony 
-sudo curl -sS https://getcomposer.org/installer | sudo php | sudo tee -a /var/log/deploy/restartapache.log
-sudo mv -f composer.phar /usr/local/bin/composer | sudo tee -a /var/log/deploy/restartapache.log
-sudo ln -sf /usr/local/bin/composer /usr/bin/composer | sudo tee -a /var/log/deploy/restartapache.log
+#sudo curl -sS https://getcomposer.org/installer | sudo php | sudo tee -a /var/log/deploy/restartapache.log
+#sudo mv -f composer.phar /usr/local/bin/composer | sudo tee -a /var/log/deploy/restartapache.log
+#sudo ln -sf /usr/local/bin/composer /usr/bin/composer | sudo tee -a /var/log/deploy/restartapache.log
 
-sudo composer install --no-dev --optimize-autoloader | sudo tee -a /var/log/deploy/restartapache.log
+#sudo composer install --no-dev --optimize-autoloader | sudo tee -a /var/log/deploy/restartapache.log
 
-sudo cd /var/www/html/doc_back_symfony; sudo php bin/console doctrine:database:create | sudo tee -a /var/log/deploy/restartapache.log
-sudo cd /var/www/html/doc_back_symfony; php bin/console doctrine:migration:migrate --quiet | sudo tee -a /var/log/deploy/restartapache.log
+#sudo PWD=/var/www/html/doc_back_symfony php bin/console doctrine:database:create | sudo tee -a /var/log/deploy/restartapache.log
+#sudo PWD=/var/www/html/doc_back_symfony php bin/console doctrine:migration:migrate --quiet | sudo tee -a /var/log/deploy/restartapache.log
 
 passphrase=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 32 | xargs)
 
