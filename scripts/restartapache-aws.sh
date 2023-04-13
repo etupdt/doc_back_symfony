@@ -9,8 +9,7 @@ cd doc_back_symfony_ln
 
 #=============================================== mysql for symfony =====================================================
 echo 'mysql for symfony' | sudo tee -a $log
-ls -lrta
- | sudo tee -a $log
+ls -lrta | sudo tee -a $log
 
 export user=$(grep '^DATABASE_URL=' '.env' | cut -d'/' -f3 | sed 's/\@/\:/' | cut -d':' -f1)
 echo "user : $user" |& sudo tee -a $log
@@ -24,7 +23,7 @@ echo "port : $port" |& sudo tee -a $log
 sudo mysql -sfu root |& sudo tee -a $log <<EOS
 -- create user with password
 CREATE USER '${user}'@'${host}' IDENTIFIED BY '$password';
-GRANT ALL PRIVILEGES ON *.* TO '${user}'@'${host}';
+GRANT ALL PRIVILEGES ON *.logindoc TO '${user}'@'${host}';
 -- make changes immediately",
 FLUSH PRIVILEGES;
 EOS

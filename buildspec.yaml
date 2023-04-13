@@ -32,6 +32,7 @@ phases:
       - cp -r * $dest
       - chmod -R 755 $dest/scripts
       - ls -lrta $dest
+      - mkdir -p $CODEBUILD_CDKPROJECTEFS/mysql
 
 artifacts:
   type: zip
