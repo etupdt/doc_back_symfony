@@ -46,6 +46,13 @@ sudo php bin/console doctrine:migration:migrate --quiet |& sudo tee -a $log
 #export APP_ENV=prod 
 #export APP_DEBUG=0 
 
+#=============================================== certificates =====================================================
+
+sudo mkdir -p /etc/httpd/ssl
+sudo cp config/ssl/studi-cacert.crt /etc/pki/ca-trust/source/anchors/
+sudo update-ca-trust
+sudo cp config/ssl/studi-public.crt /etc/httpd/ssl
+
 #=============================================== cle pour jwt =====================================================
 echo 'jwt' | sudo tee -a $log
 
