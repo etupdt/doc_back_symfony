@@ -4,6 +4,17 @@ log=/var/log/deploy/restartapache.log
 
 echo 'debut restartapache' | sudo tee $log
 
+echo '<=======================  apache & php  ===========================>' | sudo tee -a $log
+
+sudo yum install httpd -y | sudo tee -a $log
+
+sudo amazon-linux-extras install php8.2 -y |& sudo tee -a $log
+sudo yum install php-xml -y |& sudo tee -a $log
+
+echo '<=======================  mariadb  ===========================>' | sudo tee -a $log
+
+sudo yum install mysql -y |& sudo tee -a $log
+ 
 sudo ln -s /var/www/html/doc_back_symfony doc_back_symfony_ln
 cd doc_back_symfony_ln
 
