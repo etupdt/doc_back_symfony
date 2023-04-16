@@ -87,4 +87,5 @@ echo "Include /var/www/html/doc_back_symfony/scripts/httpd-vhosts-9443.conf" | s
 cat /etc/httpd/conf/httpd.conf | grep -v "Listen 9443" | sudo tee /etc/httpd/conf/httpd.conf > /dev/null
 echo "Listen 9443" | sudo tee -a /etc/httpd/conf/httpd.conf > /dev/null
 
+sudo service httpd stop |& tee -a $log
 sudo service httpd start |& tee -a $log
